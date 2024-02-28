@@ -4,7 +4,7 @@ Twoim zadaniem na pierwszej pracowni będzie stworzenie karty biznesowej w React
 
 ## Środowisko
 
-Załóż konto na [codesandbox.io](codesandbox.io). Stwórz nowy sandbox, React z TypeScriptem. To będzie twoje środowisko w tym zadaniu.
+Załóż konto na [codesandbox.io](https://codesandbox.io). Stwórz nowy sandbox, React z TypeScriptem. To będzie twoje środowisko w tym zadaniu.
 
 ## Karta
 
