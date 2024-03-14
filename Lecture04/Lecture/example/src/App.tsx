@@ -1,48 +1,45 @@
-import { useState } from "react";
 import "./App.css";
+import { TextProvider } from "./Providers/TextProvider";
+import { useTextContext } from "./Providers/useTextContext";
 
-const GrandChildren = ({ text }: { text: string }) => {
+const GrandChildren = () => {
+  const { text } = useTextContext();
+
   return <div>{text}</div>;
 };
 
-const Children = ({ text }: { text: string }) => {
-  return <GrandChildren text={text} />;
+const Children = () => {
+  return <GrandChildren />;
 };
 
-const Sibling1 = ({ text }: { text: string }) => {
+const Sibling1 = () => {
+  const { text } = useTextContext();
+
   return <div>{text}</div>;
 };
 
-const Sibling2 = ({
-  text,
-  onChange,
-}: {
-  text: string;
-  onChange: (text: string) => void;
-}) => {
-  return <input value={text} onChange={(e) => onChange(e.target.value)} />;
+const Sibling2 = () => {
+  const { text, setText } = useTextContext();
+
+  return <input value={text} onChange={(e) => setText(e.target.value)} />;
 };
 
-const Parent = ({
-  text,
-  onChange,
-}: {
-  text: string;
-  onChange: (text: string) => void;
-}) => {
+const Parent = () => {
   return (
     <div>
-      <Sibling1 text={text} />
-      <Sibling2 text={text} onChange={onChange} />
-      <Children text={text} />
+      <Sibling1 />
+      <Sibling2 />
+      <Children />
     </div>
   );
 };
 
 function App() {
-  const [text, setText] = useState("");
-
-  return <Parent text={text} onChange={setText} />;
+  return (
+    <TextProvider>
+      <Parent />
+    </TextProvider>
+  );
 }
 
 export default App;

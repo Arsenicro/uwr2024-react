@@ -21,7 +21,24 @@ const deeplyNestedProfile = {
   },
 };
 
-const objCopy = deeplyNestedProfile;
+//const objCopy = { ...deeplyNestedProfile };
+//objCopy.skills.technical.find((skill) => skill.name === "React").experience ="Advanced";
+
+//console.log(objCopy.skills.technical[1])
+
+// <Skills skills={objCopy.skills.technical} />
+
+const newSkills = deeplyNestedProfile.skills.technical.map((skill) =>
+  skill.name === "React" ? { ...skill, experience: "Advanced" } : skill
+);
+
+const objCopy = {
+  ...deeplyNestedProfile,
+  skills: {
+    ...deeplyNestedProfile.skills,
+    technical: newSkills,
+  },
+};
 
 console.log(deeplyNestedProfile === objCopy);
 console.log(deeplyNestedProfile.skills === objCopy.skills);
