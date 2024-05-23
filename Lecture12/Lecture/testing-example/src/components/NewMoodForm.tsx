@@ -50,6 +50,7 @@ const NewMoodForm = () => {
         </label>
         <Select
           id="mood_theme"
+          data-testid="mood_theme"
           value={theme}
           onChange={(e) => setTheme(e.target.value as "light" | "dark")}
         >

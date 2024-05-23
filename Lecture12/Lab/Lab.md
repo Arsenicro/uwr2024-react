@@ -79,11 +79,11 @@ W przypadku Autocomplete: wpisz (metodą `change`) do pola tekst, a następnie w
 
 ### Setup
 
-Zainstaluj [Playwright](https://playwright.dev/), według załączonej na stronie instrukcji. Dodatkowo dodaj włączanie serwera developerskiego.
+Zainstaluj [Playwright](https://playwright.dev/), według załączonej na stronie instrukcji. Dodatkowo dodaj włączanie serwera developerskiego, np. tak jak opisano niżej:
 
 Dołącz do skryptów `package.json` skrypt odpalający playwright'a i test odpalający serwer playwright'a, np. `"e2e:dev": "vite --port 3100"` i `test:e2e": "playwright test`.
 
-Dołącz także do konfiguracji playwright'a odpalanie zdefiniowanego serwera developerskiego, dodając konfugurację
+Dołącz także do konfiguracji playwright'a odpalanie zdefiniowanego serwera developerskiego, dodając konfigurację
 
 ```ts
   webServer: {

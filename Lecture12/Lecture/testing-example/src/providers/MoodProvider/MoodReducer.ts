@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import { IBaseMood, IMood } from "../../types/Mood.types";
 import { IMoodState } from "./MoodProvider.types";
 
-type MoodAction =
+export type MoodAction =
   | { type: "ADD_MOOD"; payload: IBaseMood }
   | {
       type: "SET_CURRENT_MOOD";
@@ -27,7 +27,11 @@ export const moodReducer = (
     case "SET_CURRENT_MOOD":
       return {
         ...state,
-        currentMood: action.payload.moodId || state.currentMood,
+        currentMood: state.moods.find(
+          (mood) => mood.id === action.payload.moodId
+        )
+          ? action.payload.moodId
+          : state.currentMood,
       };
     default:
       return state;
