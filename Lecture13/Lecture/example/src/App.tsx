@@ -15,6 +15,7 @@ function App() {
         onClose={() => {
           setOpen(false);
         }}
+        mode={{ type: "add" }}
       />
       <Fab
         sx={{

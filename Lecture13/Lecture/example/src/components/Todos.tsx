@@ -1,57 +1,18 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
+import { useState } from "react";
+import useGetTodos from "../api/useGetTodos";
+import useRemoveTodo from "../api/useRemoveTodo";
+import { ITodo } from "../types/Todo.type";
 import { ITodoType } from "../types/TodoType.type";
-
-const todos = [
-  {
-    id: 1,
-    body: "Buy milk",
-    typeId: 2,
-    type: {
-      id: 2,
-      body: "Personal",
-    },
-  },
-  {
-    id: 2,
-    body: "Finish homework",
-    typeId: 1,
-    type: {
-      id: 1,
-      body: "Work",
-    },
-  },
-  {
-    id: 3,
-    body: "Go to the gym",
-    typeId: 2,
-    type: {
-      id: 2,
-      body: "Personal",
-    },
-  },
-  {
-    id: 4,
-    body: "Call mom",
-    typeId: 2,
-    type: {
-      id: 2,
-      body: "Personal",
-    },
-  },
-  {
-    id: 5,
-    body: "Buy a new phone",
-    typeId: 3,
-    type: {
-      id: 3,
-      body: "Other",
-    },
-  },
-];
+import TodoModal from "./TodoModal";
 
 function Todos() {
+  const query = useGetTodos();
+  const removeMutation = useRemoveTodo();
+  const [editModal, setEditModal] = useState<ITodo["id"] | null>(null);
+
   const columns: GridColDef[] = [
     { field: "id", headerName: "Id", width: 150 },
     { field: "body", headerName: "Body", flex: 1 },
@@ -70,14 +31,14 @@ function Todos() {
           icon={<DeleteIcon />}
           label="Delete"
           onClick={() => {
-            console.log(`Delete todo with id ${params.id}`);
+            removeMutation.mutate(+params.id);
           }}
         />,
         <GridActionsCellItem
           icon={<EditIcon />}
           label="Edit"
           onClick={() => {
-            console.log(`Edit todo with id ${params.id}`);
+            setEditModal(+params.id);
           }}
         />,
       ],
@@ -87,7 +48,16 @@ function Todos() {
 
   return (
     <div style={{ height: 500, width: "100%" }}>
-      <DataGrid rows={todos} columns={columns} />
+      <DataGrid
+        rows={query.data || []}
+        columns={columns}
+        loading={query.isFetching || removeMutation.isPending}
+      />
+      <TodoModal
+        open={!!editModal}
+        onClose={() => setEditModal(null)}
+        mode={{ type: "edit", id: editModal }}
+      />
     </div>
   );
 }

@@ -5,11 +5,7 @@ import {
 } from "@mui/material";
 import React from "react";
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
+const theme = createTheme();
 
 function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (

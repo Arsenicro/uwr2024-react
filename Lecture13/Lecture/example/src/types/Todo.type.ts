@@ -6,3 +6,6 @@ export interface ITodo {
   typeId: ITodoType["id"];
   type: ITodoType;
 }
+
+export type IAddTodo = Omit<ITodo, "id" | "type">;
+export type IEditTodo = Omit<ITodo, "type">;

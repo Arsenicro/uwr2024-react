@@ -1,21 +1,7 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Modal,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useState } from "react";
-import { ITodoType } from "../types/TodoType.type";
-
-interface ITodoModalProps {
-  open: boolean;
-  onClose: () => void;
-}
+import { Box, Modal } from "@mui/material";
+import { ITodo } from "../types/Todo.type";
+import AddTodoModalContent from "./AddTodoModalContent";
+import EditTodoModalContentWrapper from "./EditTodoModalContent";
 
 const style = {
   position: "absolute",
@@ -29,71 +15,35 @@ const style = {
   p: 4,
 } as const;
 
-const types = [
-  {
-    id: 1,
-    body: "Work",
-  },
-  {
-    id: 2,
-    body: "Personal",
-  },
-  {
-    id: 3,
-    body: "Other",
-  },
-];
+interface ITodoModalProps {
+  open: boolean;
+  onClose: () => void;
+  mode: { type: "add" } | { type: "edit"; id: ITodo["id"] | null };
+}
 
-function TodoModal({ open, onClose }: ITodoModalProps) {
-  const [body, setBody] = useState("");
-  const [type, setType] = useState<ITodoType["id"] | "">("");
+function TodoModalContent({ onClose, mode }: Omit<ITodoModalProps, "open">) {
+  if (mode.type === "add") {
+    return <AddTodoModalContent onClose={onClose} />;
+  }
 
+  if (mode.type === "edit" && mode.id) {
+    return (
+      <EditTodoModalContentWrapper
+        key={mode.id}
+        onClose={onClose}
+        id={mode.id}
+      />
+    );
+  }
+
+  return null;
+}
+
+function TodoModal({ open, onClose, mode }: ITodoModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log({ body, type });
-          }}
-        >
-          <Typography variant="h6" component="h2">
-            Add Todo
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 2 }}>
-            <TextField
-              fullWidth
-              id="body"
-              label="Body"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
-            <FormControl fullWidth>
-              <InputLabel id="type-label">Type</InputLabel>
-              <Select
-                labelId="type-label"
-                id="type"
-                label="Type"
-                value={type}
-                onChange={(e) => setType(e.target.value as ITodoType["id"])}
-              >
-                {types.map((type) => (
-                  <MenuItem key={type.id} value={type.id}>
-                    {type.body}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box sx={{ mt: 2, display: "flex" }}>
-            <Button fullWidth color="success" type="submit">
-              Save
-            </Button>
-            <Button fullWidth color="error" onClick={onClose}>
-              Close
-            </Button>
-          </Box>
-        </form>
+        <TodoModalContent onClose={onClose} mode={mode} />
       </Box>
     </Modal>
   );

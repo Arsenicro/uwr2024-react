@@ -7,23 +7,8 @@
     },
     {
       "id": 2,
-      "body": "Finish task",
+      "body": "Hello",
       "typeId": 1
-    },
-    {
-      "id": 3,
-      "body": "Go to the gym",
-      "typeId": 2
-    },
-    {
-      "id": 4,
-      "body": "Call mom",
-      "typeId": 2
-    },
-    {
-      "id": 5,
-      "body": "Buy a new phone",
-      "typeId": 3
     }
   ],
   "types": [
