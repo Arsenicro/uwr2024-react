@@ -1,0 +1,43 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "body": "Buy milk",
+      "typeId": 2
+    },
+    {
+      "id": 2,
+      "body": "Finish task",
+      "typeId": 1
+    },
+    {
+      "id": 3,
+      "body": "Go to the gym",
+      "typeId": 2
+    },
+    {
+      "id": 4,
+      "body": "Call mom",
+      "typeId": 2
+    },
+    {
+      "id": 5,
+      "body": "Buy a new phone",
+      "typeId": 3
+    }
+  ],
+  "types": [
+    {
+      "id": 1,
+      "body": "Work"
+    },
+    {
+      "id": 2,
+      "body": "Personal"
+    },
+    {
+      "id": 3,
+      "body": "Other"
+    }
+  ]
+}
